@@ -150,7 +150,11 @@ const TestPage = () => {
     <FlexContainer>
       <h1>Now you know your personality</h1>
       <p>Excited to meet who has the same thought with you?</p>
-      <Image src={getImg("start")} alt="start" />
+      <Image
+        style={{ maxWidth: "600px", alignSelf: "center" }}
+        src={getImg("start")}
+        alt="start"
+      />
       <Link href="/">
         <Button type="primary">Start Matching</Button>
       </Link>
