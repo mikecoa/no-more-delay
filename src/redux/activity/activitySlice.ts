@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { activityData } from "@utils/data";
 
 interface ActivityState {
@@ -10,7 +11,7 @@ interface ActivityState {
 }
 
 const initialState: ActivityState = {
-  joinedActivities: [{ id: activityData[0].id, name:activityData[0].name }],
+  joinedActivities: [{ id: activityData[0].id, name: activityData[0].name }],
 };
 
 export const authSlice = createSlice({

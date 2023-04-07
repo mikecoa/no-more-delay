@@ -1,18 +1,13 @@
-import { clearActivity } from "@redux/activity/activitySlice";
-import { clearAuth, setAuth } from "@redux/auth/authSlice";
-import { clearChat } from "@redux/chat/chatSlice";
-import { setModal } from "@redux/modal/modalSlice";
-import { clearTest } from "@redux/test/testSlice";
-import { useDispatch, useSelector } from "@utils/hooks";
-import { notification, Form as AntdForm, Input, Button } from "antd";
-import { useRouter } from "next/router";
 import React from "react";
+
+import { notification, Form as AntdForm, Input, Button } from "antd";
 import styled from "styled-components";
+
+import { setModal } from "@redux/modal/modalSlice";
+import { useDispatch } from "@utils/hooks";
 
 const PaymentForm = ({ onFinish }: { onFinish: Function }) => {
   const dispatch = useDispatch();
-
-  const router = useRouter();
 
   const GridContainer = styled.div`
     display: grid;
@@ -22,8 +17,8 @@ const PaymentForm = ({ onFinish }: { onFinish: Function }) => {
 
   return (
     <AntdForm
-      onFinish={(val) => {
-        dispatch(setModal({ userDetail: false, paymentDetail: false }));
+      onFinish={() => {
+        dispatch(setModal({ paymentDetail: false, userDetail: false }));
         onFinish();
         notification.success({ message: "Succesfully joined!" });
       }}
@@ -47,26 +42,26 @@ const PaymentForm = ({ onFinish }: { onFinish: Function }) => {
           <AntdForm.Item
             name="monthExp"
             rules={[
-              { message: "Please input expiry month!", required: true, max: 2 },
+              { max: 2, message: "Please input expiry month!", required: true },
             ]}
           >
-            <Input placeholder="YY" maxLength={2} />
+            <Input maxLength={2} placeholder="YY" />
           </AntdForm.Item>
 
           <AntdForm.Item
             name="yearExp"
             rules={[
-              { message: "Please input expiry year!", required: true, max: 2 },
+              { max: 2, message: "Please input expiry year!", required: true },
             ]}
           >
-            <Input placeholder="MM" maxLength={2} />
+            <Input maxLength={2} placeholder="MM" />
           </AntdForm.Item>
 
           <AntdForm.Item
             name="ccv"
-            rules={[{ message: "Please input CCV!", required: true, max: 3 }]}
+            rules={[{ max: 3, message: "Please input CCV!", required: true }]}
           >
-            <Input placeholder="CCV" maxLength={3} />
+            <Input maxLength={3} placeholder="CCV" />
           </AntdForm.Item>
         </GridContainer>
       </div>

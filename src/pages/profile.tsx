@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Button, Input, notification } from "antd";
+import { Button, notification } from "antd";
 import { useRouter } from "next/router";
-import ProfileForm from "@components/ProfileForm";
 
+import ProfileForm from "@components/ProfileForm";
 import { clearActivity } from "@redux/activity/activitySlice";
-import { clearAuth, setAuth } from "@redux/auth/authSlice";
+import { clearAuth } from "@redux/auth/authSlice";
 import { clearChat } from "@redux/chat/chatSlice";
 import { clearTest } from "@redux/test/testSlice";
 import { useDispatch, useSelector } from "@utils/hooks";

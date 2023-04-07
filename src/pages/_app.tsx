@@ -6,16 +6,14 @@ import "../styles/globals.css";
 import Layout from "@components/Layout";
 import { persistor, store } from "@redux/configureStore";
 
-const App = ({ Component, pageProps }: AppProps) => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </PersistGate>
-    </Provider>
-  );
-};
+const App = ({ Component, pageProps }: AppProps) => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </PersistGate>
+  </Provider>
+);
 
 export default App;

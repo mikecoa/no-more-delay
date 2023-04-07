@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Button, Input } from "antd";
 import styled from "styled-components";
@@ -29,10 +29,6 @@ const ChatPage = () => {
   const [draftMessage, setDraftMessage] = useState<string>("");
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(draftMessage);
-  }, [draftMessage]);
 
   return (
     <StyledGridContainer>
@@ -79,12 +75,12 @@ const ChatPage = () => {
                   dispatch(
                     setChats(
                       chats.map((chat) =>
-                        chat.id === current
+                        (chat.id === current
                           ? {
                               ...chat,
                               messages: [...chat.messages, newMessage],
                             }
-                          : chat,
+                          : chat),
                       ),
                     ),
                   );

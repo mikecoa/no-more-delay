@@ -10,13 +10,13 @@ export const Container = styled.div<ContainerProps>`
   display: flex;
   text-align: center;
   ${({ column }) =>
-    column ? "flex-direction: column;" : "flex-direction:row;"}
+    (column ? "flex-direction: column;" : "flex-direction:row;")}
   ${({ gap }) =>
-    gap
+    (gap
       ? `
         gap: ${gap}px;
       `
-      : "gap: 10px;"}
+      : "gap: 10px;")}
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;

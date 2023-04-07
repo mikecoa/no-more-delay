@@ -1,17 +1,17 @@
 import React from "react";
 
+import { ArrowRightOutlined } from "@ant-design/icons";
+import { Button, notification } from "antd";
 import Link from "next/link";
+import styled from "styled-components";
 
+import Image from "@components/Image";
 import { Container } from "@components/StyledComponents";
 import { setHasTested } from "@redux/auth/authSlice";
 import { setAnswer, setTestState } from "@redux/test/testSlice";
+import { getImg } from "@utils/getImg";
 import { arrayRange } from "@utils/helper";
 import { useDispatch, useSelector } from "@utils/hooks";
-import styled from "styled-components";
-import { getImg } from "@utils/getImg";
-import Image from "@components/Image";
-import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, notification } from "antd";
 
 const TestPage = () => {
   const { test } = useSelector((state) => state);
@@ -26,9 +26,9 @@ const TestPage = () => {
         dispatch(
           setAnswer(
             questionnaires.map((toBeFiltered) =>
-              toBeFiltered.question === item.question
+              (toBeFiltered.question === item.question
                 ? { ...toBeFiltered, answer }
-                : toBeFiltered,
+                : toBeFiltered),
             ),
           ),
         );
@@ -38,16 +38,16 @@ const TestPage = () => {
           <Container>
             {arrayRange(-3, 3, 1).map((val) => (
               <button
+                key={val}
                 style={{
-                  borderRadius: "50%",
                   aspectRatio: 1,
                   background: "none",
+                  backgroundColor: item.answer === val ? "lightblue" : "white",
                   border: "2px solid",
                   borderColor: val < 0 ? "red" : val === 0 ? "gray" : "green",
+                  borderRadius: "50%",
                   width: 25 + Math.abs(val * 4),
-                  backgroundColor: item.answer === val ? "lightblue" : "white",
                 }}
-                key={val}
                 type="button"
                 onClick={handleClick(val)}
               >
@@ -88,7 +88,7 @@ const TestPage = () => {
       <GridContainer>
         <div>
           <h4>1. MBTI</h4>
-          <Image src={getImg("mbti")} alt="mbti" />
+          <Image alt="mbti" src={getImg("mbti")} />
           <ul>
             <li>20 mins test</li>
             <li>Answer with your first impression</li>
@@ -97,7 +97,7 @@ const TestPage = () => {
         <ArrowRightOutlined />
         <div>
           <h4>2. Personality</h4>
-          <Image src={getImg("personality")} alt="personality" />
+          <Image alt="personality" src={getImg("personality")} />
           <ul>
             <li>You will find out who you are</li>
           </ul>
@@ -105,7 +105,7 @@ const TestPage = () => {
         <ArrowRightOutlined />
         <div>
           <h4>3. Matching</h4>
-          <Image src={getImg("matching")} alt="matching" />
+          <Image alt="matching" src={getImg("matching")} />
           <ul>
             <li>Start making new friends!!</li>
           </ul>
@@ -130,8 +130,6 @@ const TestPage = () => {
             questionnaires.find((item) => item.answer === undefined) ===
             undefined;
 
-          console.log(isFinished);
-
           if (isFinished) {
             dispatch(setTestState("finished"));
             dispatch(setHasTested(true));
@@ -151,9 +149,9 @@ const TestPage = () => {
       <h1>Now you know your personality</h1>
       <p>Excited to meet who has the same thought with you?</p>
       <Image
-        style={{ maxWidth: "600px", alignSelf: "center" }}
-        src={getImg("start")}
         alt="start"
+        src={getImg("start")}
+        style={{ alignSelf: "center", maxWidth: "600px" }}
       />
       <Link href="/">
         <Button type="primary">Start Matching</Button>

@@ -1,16 +1,15 @@
 import React from "react";
 
+import { Button, Modal } from "antd";
 import { useRouter } from "next/router";
 
 import Image from "@components/Image";
+import PaymentForm from "@components/PaymentForm";
 import { setActivities } from "@redux/activity/activitySlice";
+import { setModal } from "@redux/modal/modalSlice";
+import { activityData } from "@utils/data";
 import { getImg } from "@utils/getImg";
 import { useDispatch, useSelector } from "@utils/hooks";
-import { activityData } from "@utils/data";
-import { Button, Modal, Typography } from "antd";
-import ProfileForm from "@components/ProfileForm";
-import { setModal } from "@redux/modal/modalSlice";
-import PaymentForm from "@components/PaymentForm";
 
 const ActivityDetails = () => {
   const router = useRouter();
@@ -34,9 +33,7 @@ const ActivityDetails = () => {
   };
 
   const handleJoin = () => {
-    dispatch(
-      setActivities([...joinedActivities, { id: activityId, name: name }]),
-    );
+    dispatch(setActivities([...joinedActivities, { id: activityId, name }]));
   };
   const handleLeave = () => {
     const newActivities = joinedActivities.filter(
@@ -47,7 +44,7 @@ const ActivityDetails = () => {
   return (
     <>
       <Image alt={img} src={getImg(img)} />
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ alignItems: "center", display: "flex", gap: "10px" }}>
         <h1>{name}</h1>
         <p style={{ border: "2px solid black", padding: 3 }}>
           {isJoined ? "You have joined" : "You have not joined"}
@@ -67,11 +64,11 @@ const ActivityDetails = () => {
         </Button>
       )}
       <Modal
+        footer={null}
         open={paymentDetail}
         onCancel={() =>
           dispatch(setModal({ paymentDetail: false, userDetail: false }))
         }
-        footer={null}
       >
         <PaymentForm onFinish={handleJoin} />
       </Modal>

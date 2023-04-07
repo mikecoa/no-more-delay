@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { activityData } from "@utils/data";
 
 const initialState = {
-  userDetail:false,
-  paymentDetail:false
+  paymentDetail: false,
+  userDetail: false,
 };
 
 export type ModalState = typeof initialState
@@ -14,7 +13,7 @@ export const modalSlice = createSlice({
   name: "modal",
   reducers: {
     clearModal: () => initialState,
-    setModal: (state, action:PayloadAction<ModalState>) =>({...state,...action.payload}) 
+    setModal: (state, action:PayloadAction<ModalState>) => ({ ...state, ...action.payload }),
   },
 });
 

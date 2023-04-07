@@ -1,17 +1,17 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable global-require */
 
 const paths = {
-  dog: require("public/img/dog.jpg"),
-  group: require("public/img/group.png"),
   camping: require("public/img/camping.jpg"),
   cycling: require("public/img/cycling.jpg"),
   disney: require("public/img/disney.jpg"),
+  dog: require("public/img/dog.jpg"),
+  group: require("public/img/group.png"),
   kayaking: require("public/img/kayaking.jpg"),
+  matching: require("public/img/matching.png"),
   mbti: require("public/img/mbti.png"),
   personality: require("public/img/personality.png"),
-  matching: require("public/img/matching.png"),
-  start: require("public/img/start.png")
-  // wallpaper: require("public/svg/wallpaper.svg"),
+  start: require("public/img/start.png"),
 };
 
 type ImgPaths = keyof typeof paths;

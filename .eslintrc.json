@@ -8,8 +8,8 @@
     "eslint:recommended",
     "next/core-web-vitals",
     "airbnb",
-    "plugin:eqeqeq-fix/recommended",
-    "plugin:prettier/recommended"
+    "plugin:eqeqeq-fix/recommended"
+    // "plugin:prettier/recommended"
   ],
   "settings": {
     "import/parsers": {
@@ -23,6 +23,8 @@
   },
   "plugins": ["sort-keys", "import"],
   "rules": {
+    "linebreak-style":"off",
+    "no-nested-ternary":"off",
     // "prettier/prettier": [
     //   "error",
     //   {

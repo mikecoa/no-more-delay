@@ -1,16 +1,15 @@
 import { Button, Modal, Typography } from "antd";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import Image from "@components/Image";
-import { Container, Grid } from "@components/StyledComponents";
-import { ImgPaths, getImg } from "@utils/getImg";
-import { useDispatch, useSelector } from "@utils/hooks";
-import { activityData } from "@utils/data";
-import { useState } from "react";
 import ProfileForm from "@components/ProfileForm";
-import { useRouter } from "next/router";
+import { Container, Grid } from "@components/StyledComponents";
 import { setModal } from "@redux/modal/modalSlice";
+import { activityData } from "@utils/data";
+import { getImg } from "@utils/getImg";
+import { useDispatch, useSelector } from "@utils/hooks";
 
 const TestContainer = styled.div`
   display: grid;
@@ -44,9 +43,9 @@ const HomePage = () => {
         <Button
           type="primary"
           onClick={() => {
-            if (auth.username === "")
-              dispatch(setModal({ userDetail: true, paymentDetail: false }));
-            else router.push("/test");
+            if (auth.username === "") {
+              dispatch(setModal({ paymentDetail: false, userDetail: true }));
+            } else router.push("/test");
           }}
         >
           Start Matching
@@ -80,11 +79,11 @@ const HomePage = () => {
       )}
       {hasTested ? renderActivities() : renderTest()}
       <Modal
+        footer={null}
         open={userDetail}
         onCancel={() =>
-          dispatch(setModal({ userDetail: false, paymentDetail: false }))
+          dispatch(setModal({ paymentDetail: false, userDetail: false }))
         }
-        footer={null}
       >
         <ProfileForm />
       </Modal>

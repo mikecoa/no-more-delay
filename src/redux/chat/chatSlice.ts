@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { activityData } from "@utils/data";
 
 export interface ChatProps {
@@ -30,7 +31,7 @@ const initialState: { current?: number; chats: ChatProps[] } = {
           sender: "Sandy",
         },
       ],
-      name:activityData[0].name
+      name: activityData[0].name,
     },
   ],
 };
