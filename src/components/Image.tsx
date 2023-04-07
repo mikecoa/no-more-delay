@@ -11,7 +11,11 @@ const StyledNextImage = styled(NextImage)`
 `;
 
 const Image = (props: ImageProps): JSX.Element => (
-  <StyledNextImage sizes="(max-width: 768px) 100vw, 50vw" {...props} />
+  <StyledNextImage
+    placeholder="blur"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    {...props}
+  />
 );
 
 export default Image;
