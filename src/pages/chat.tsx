@@ -15,7 +15,8 @@ const StyledGridContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border: 1px solid black;
+    border: 1px solid gray;
+    border-radius: 10px;
     padding: 10px;
   }
 `;
@@ -38,17 +39,19 @@ const ChatPage = () => {
       <div>
         {activity.joinedActivities.map((item) => (
           <Button
-            key={item.id}
+            key={item.name}
             onClick={() => {
               dispatch(setCurrent(item.id));
             }}
-          >{`activity ${item.id}`}</Button>
+          >
+            {item.name}
+          </Button>
         ))}
       </div>
       <div>
         {current ? (
           <>
-            <h4>Chat for activity {current}</h4>
+            <h4>Group Chat</h4>
             {chats.find((chat) => chat.id === current) !== undefined &&
               chats
                 .find((chat) => chat.id === current)
@@ -96,6 +99,11 @@ const ChatPage = () => {
                         sender: auth.username,
                       },
                     ],
+                    name: (
+                      activity.joinedActivities.find(
+                        (activity) => activity.id === current,
+                      ) as any
+                    ).name,
                   };
                   dispatch(setChats([...chats, newChat]));
                 }

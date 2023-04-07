@@ -6,6 +6,8 @@ const StyledNextImage = styled(NextImage)`
   height: auto;
   width: 100%;
   border-radius: 16px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
 `;
 
 const Image = (props: ImageProps): JSX.Element => (

@@ -40,12 +40,52 @@ const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Card>
         <NavigationContainer>
-          <h3>No More Delay</h3>
+          <h1>No More Delay</h1>
           <div>
-            <Link href="/">Explore</Link>
-            <Link href="/test">Test</Link>
-            <Link href="/chat">Chat</Link>
-            <Link href="/profile">Profile</Link>
+            <Link
+              style={{
+                padding: 5,
+                borderRadius: 5,
+                backgroundColor: "lightblue",
+                color: "black",
+              }}
+              href="/"
+            >
+              Explore
+            </Link>
+            <Link
+              style={{
+                padding: 5,
+                borderRadius: 5,
+                backgroundColor: "lightblue",
+                color: "black",
+              }}
+              href="/test"
+            >
+              Test
+            </Link>
+            <Link
+              style={{
+                padding: 5,
+                borderRadius: 5,
+                backgroundColor: "lightblue",
+                color: "black",
+              }}
+              href="/chat"
+            >
+              Chat
+            </Link>
+            <Link
+              style={{
+                padding: 5,
+                borderRadius: 5,
+                backgroundColor: "lightblue",
+                color: "black",
+              }}
+              href="/profile"
+            >
+              Profile
+            </Link>
             {/* <Link href="/help">Need Help</Link> */}
           </div>
         </NavigationContainer>

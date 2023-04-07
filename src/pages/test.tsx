@@ -7,6 +7,11 @@ import { setHasTested } from "@redux/auth/authSlice";
 import { setAnswer, setTestState } from "@redux/test/testSlice";
 import { arrayRange } from "@utils/helper";
 import { useDispatch, useSelector } from "@utils/hooks";
+import styled from "styled-components";
+import { getImg } from "@utils/getImg";
+import Image from "@components/Image";
+import { ArrowRightOutlined } from "@ant-design/icons";
+import { Button, notification } from "antd";
 
 const TestPage = () => {
   const { test } = useSelector((state) => state);
@@ -30,10 +35,21 @@ const TestPage = () => {
       return (
         <Container key={item.question} column>
           <h4>{item.question}</h4>
-          <p>{`answer:${item.answer}`}</p>
           <Container>
             {arrayRange(-3, 3, 1).map((val) => (
-              <button key={val} type="button" onClick={handleClick(val)}>
+              <button
+                style={{
+                  borderRadius: "50%",
+                  aspectRatio: 1,
+                  borderColor:
+                    val < 0 ? "red" : val === 0 ? "gainsboro" : "green",
+                  width: 25 + Math.abs(val * 5),
+                  backgroundColor: item.answer === val ? "yellow" : "white",
+                }}
+                key={val}
+                type="button"
+                onClick={handleClick(val)}
+              >
                 {val}
               </button>
             ))}
@@ -42,41 +58,102 @@ const TestPage = () => {
       );
     });
 
-  const renderPrelim = () => (
-    <div>
-      <h1>Find out who you are</h1>
-      <div>
-        <h1>contenst</h1>
-      </div>
+  const NerdContainer = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr 2fr;
+    place-items: center;
 
-      <button type="button" onClick={() => dispatch(setTestState("ongoing"))}>
+    & > div {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  `;
+
+  const GayContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding: 50px;
+  `;
+
+  const renderPrelim = () => (
+    <GayContainer>
+      <h1>Find out who you are</h1>
+      <NerdContainer>
+        <div>
+          <h4>1. MBTI</h4>
+          <Image src={getImg("mbti")} alt="mbti" />
+          <ul>
+            <li>20 mins test</li>
+            <li>Answer with your first impression</li>
+          </ul>
+        </div>
+        <ArrowRightOutlined />
+        <div>
+          <h4>2. Personality</h4>
+          <Image src={getImg("personality")} alt="personality" />
+          <ul>
+            <li>You will find out who you are</li>
+          </ul>
+        </div>
+        <ArrowRightOutlined />
+        <div>
+          <h4>3. Matching</h4>
+          <Image src={getImg("matching")} alt="matching" />
+          <ul>
+            <li>Start making new friends!!</li>
+          </ul>
+        </div>
+      </NerdContainer>
+
+      <Button type="primary" onClick={() => dispatch(setTestState("ongoing"))}>
         Start Testing
-      </button>
-    </div>
+      </Button>
+    </GayContainer>
   );
   const renderOngoing = () => (
-    <div>
+    <GayContainer>
       <h1>Follow the questions Answer with your first impression</h1>
       <Container gap={50} column>
         {renderQuestions()}
       </Container>
-      <button
-        type="button"
+      <Button
+        type="primary"
         onClick={() => {
-          dispatch(setTestState("finished"));
-          dispatch(setHasTested(true));
+          const isFinished =
+            questionnaires.find((item) => item.answer === undefined) ===
+            undefined;
+
+          console.log(isFinished);
+
+          if (isFinished) {
+            dispatch(setTestState("finished"));
+            dispatch(setHasTested(true));
+          } else {
+            notification.error({
+              message: "Please answer all of the questions!",
+            });
+          }
         }}
       >
         Submit
-      </button>
-    </div>
+      </Button>
+    </GayContainer>
   );
   const renderFinished = () => (
-    <div>
+    <GayContainer>
       <h1>Now you know your personality</h1>
       <p>Excited to meet who has the same thought with you?</p>
-      <Link href="/">Start Matching</Link>
-    </div>
+      <Image src={getImg("start")} alt="start" />
+      <Link href="/">
+        <Button type="primary">Start Matching</Button>
+      </Link>
+    </GayContainer>
   );
 
   if (testState === "ongoing") return renderOngoing();

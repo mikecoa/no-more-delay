@@ -17,6 +17,19 @@ export const Container = styled.div<ContainerProps>`
         gap: ${gap}px;
       `
       : "gap: 10px;"}
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+`;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
