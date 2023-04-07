@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Button, Form, Input, notification } from "antd";
+import { Button, Input, notification } from "antd";
 import { useRouter } from "next/router";
+import ProfileForm from "@components/ProfileForm";
 
 import { clearActivity } from "@redux/activity/activitySlice";
 import { clearAuth, setAuth } from "@redux/auth/authSlice";
@@ -16,39 +17,22 @@ const ProfilePage = () => {
 
   const router = useRouter();
 
-  return (
-    <Form
-      initialValues={auth}
-      onFinish={(val) => {
+  return auth.username !== "" ? (
+    <Button
+      type="primary"
+      onClick={() => {
         dispatch(clearAuth());
-        dispatch(setAuth(val));
         dispatch(clearActivity());
         dispatch(clearTest());
         dispatch(clearChat());
-        notification.success({ message: "Successfully changed!" });
+        notification.success({ message: "Successfully logged out!" });
         router.push("/");
       }}
     >
-      <Form.Item
-        name="username"
-        rules={[{ message: "Please input username!", required: true }]}
-      >
-        <Input placeholder="Username" />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        rules={[{ message: "Please input password!", required: true }]}
-      >
-        <Input.Password placeholder="Password" />
-      </Form.Item>
-
-      <Form.Item>
-        <Button htmlType="submit" type="primary">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      Log out
+    </Button>
+  ) : (
+    <ProfileForm />
   );
 };
 

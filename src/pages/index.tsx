@@ -1,12 +1,16 @@
-import { Button, Typography } from "antd";
+import { Button, Modal, Typography } from "antd";
 import NextLink from "next/link";
 import styled from "styled-components";
 
 import Image from "@components/Image";
 import { Container, Grid } from "@components/StyledComponents";
 import { ImgPaths, getImg } from "@utils/getImg";
-import { useSelector } from "@utils/hooks";
+import { useDispatch, useSelector } from "@utils/hooks";
 import { activityData } from "@utils/data";
+import { useState } from "react";
+import ProfileForm from "@components/ProfileForm";
+import { useRouter } from "next/router";
+import { setModal } from "@redux/modal/modalSlice";
 
 const TestContainer = styled.div`
   display: grid;
@@ -22,7 +26,11 @@ const SmallerContainer = styled.div`
 `;
 
 const HomePage = () => {
-  const { auth } = useSelector((state) => state);
+  const { auth, modal } = useSelector((state) => state);
+  const { userDetail } = modal;
+
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const { hasTested } = auth;
 
@@ -33,9 +41,16 @@ const HomePage = () => {
       <Image alt="group" src={getImg("group")} />
       <SmallerContainer>
         <h1>Explore</h1>
-        <NextLink href="/test">
-          <Button type="primary">Start Matching</Button>
-        </NextLink>
+        <Button
+          type="primary"
+          onClick={() => {
+            if (auth.username === "")
+              dispatch(setModal({ userDetail: true, paymentDetail: false }));
+            else router.push("/test");
+          }}
+        >
+          Start Matching
+        </Button>
       </SmallerContainer>
     </TestContainer>
   );
@@ -64,6 +79,15 @@ const HomePage = () => {
         <h1>Please Log in first!</h1>
       )}
       {hasTested ? renderActivities() : renderTest()}
+      <Modal
+        open={userDetail}
+        onCancel={() =>
+          dispatch(setModal({ userDetail: false, paymentDetail: false }))
+        }
+        footer={null}
+      >
+        <ProfileForm />
+      </Modal>
     </div>
   );
 };

@@ -41,10 +41,11 @@ const TestPage = () => {
                 style={{
                   borderRadius: "50%",
                   aspectRatio: 1,
-                  borderColor:
-                    val < 0 ? "red" : val === 0 ? "gainsboro" : "green",
-                  width: 25 + Math.abs(val * 5),
-                  backgroundColor: item.answer === val ? "yellow" : "white",
+                  background: "none",
+                  border: "2px solid",
+                  borderColor: val < 0 ? "red" : val === 0 ? "gray" : "green",
+                  width: 25 + Math.abs(val * 4),
+                  backgroundColor: item.answer === val ? "lightblue" : "white",
                 }}
                 key={val}
                 type="button"
@@ -58,7 +59,7 @@ const TestPage = () => {
       );
     });
 
-  const NerdContainer = styled.div`
+  const GridContainer = styled.div`
     display: grid;
     grid-template-columns: 2fr 1fr 2fr 1fr 2fr;
     place-items: center;
@@ -72,7 +73,7 @@ const TestPage = () => {
     }
   `;
 
-  const GayContainer = styled.div`
+  const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,9 +83,9 @@ const TestPage = () => {
   `;
 
   const renderPrelim = () => (
-    <GayContainer>
+    <FlexContainer>
       <h1>Find out who you are</h1>
-      <NerdContainer>
+      <GridContainer>
         <div>
           <h4>1. MBTI</h4>
           <Image src={getImg("mbti")} alt="mbti" />
@@ -109,15 +110,15 @@ const TestPage = () => {
             <li>Start making new friends!!</li>
           </ul>
         </div>
-      </NerdContainer>
+      </GridContainer>
 
       <Button type="primary" onClick={() => dispatch(setTestState("ongoing"))}>
         Start Testing
       </Button>
-    </GayContainer>
+    </FlexContainer>
   );
   const renderOngoing = () => (
-    <GayContainer>
+    <FlexContainer>
       <h1>Follow the questions Answer with your first impression</h1>
       <Container gap={50} column>
         {renderQuestions()}
@@ -143,17 +144,17 @@ const TestPage = () => {
       >
         Submit
       </Button>
-    </GayContainer>
+    </FlexContainer>
   );
   const renderFinished = () => (
-    <GayContainer>
+    <FlexContainer>
       <h1>Now you know your personality</h1>
       <p>Excited to meet who has the same thought with you?</p>
       <Image src={getImg("start")} alt="start" />
       <Link href="/">
         <Button type="primary">Start Matching</Button>
       </Link>
-    </GayContainer>
+    </FlexContainer>
   );
 
   if (testState === "ongoing") return renderOngoing();

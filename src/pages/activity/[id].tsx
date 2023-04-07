@@ -7,7 +7,10 @@ import { setActivities } from "@redux/activity/activitySlice";
 import { getImg } from "@utils/getImg";
 import { useDispatch, useSelector } from "@utils/hooks";
 import { activityData } from "@utils/data";
-import { Button, Typography } from "antd";
+import { Button, Modal, Typography } from "antd";
+import ProfileForm from "@components/ProfileForm";
+import { setModal } from "@redux/modal/modalSlice";
+import PaymentForm from "@components/PaymentForm";
 
 const ActivityDetails = () => {
   const router = useRouter();
@@ -16,12 +19,19 @@ const ActivityDetails = () => {
   const data: any = activityData.find((activity) => activity.id === activityId);
   const { img, name, des, cost, date } = data;
 
-  const { joinedActivities } = useSelector((state) => state.activity);
+  const { activity, modal } = useSelector((state) => state);
+
+  const { joinedActivities } = activity;
+  const { paymentDetail } = modal;
 
   const dispatch = useDispatch();
 
   const isJoined =
     joinedActivities.find((item) => item.id === activityId) !== undefined;
+
+  const handleClick = () => {
+    dispatch(setModal({ paymentDetail: true, userDetail: false }));
+  };
 
   const handleJoin = () => {
     dispatch(
@@ -52,10 +62,19 @@ const ActivityDetails = () => {
           Leave activity
         </Button>
       ) : (
-        <Button type="primary" onClick={handleJoin}>
+        <Button type="primary" onClick={handleClick}>
           Join activity
         </Button>
       )}
+      <Modal
+        open={paymentDetail}
+        onCancel={() =>
+          dispatch(setModal({ paymentDetail: false, userDetail: false }))
+        }
+        footer={null}
+      >
+        <PaymentForm onFinish={handleJoin} />
+      </Modal>
     </>
   );
 };
