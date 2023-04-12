@@ -146,7 +146,7 @@ const TestPage = () => {
   );
   const renderFinished = () => (
     <FlexContainer>
-      <h1>Now you know your personality</h1>
+      <h1>You are ENFP</h1>
       <p>Excited to meet who has the same thought with you?</p>
       <Image
         alt="start"
